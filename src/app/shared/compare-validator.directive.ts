@@ -3,14 +3,18 @@ import {AbstractControl, NG_VALIDATORS, ValidationErrors, Validator} from '@angu
 import {Subscription} from 'rxjs';
 
 @Directive({
-  selector: '[appCompareValidator]',
+  selector: '[compare]',
   providers: [{provide: NG_VALIDATORS, useExisting: CompareValidatorDirective, multi: true}]
 })
 export class CompareValidatorDirective implements Validator {
 
-  @Input('appCompareValidator') controlNameToCompare: string;
+  @Input('compare') controlNameToCompare: string;
 
   validate(c: AbstractControl): ValidationErrors | null {
+
+    if (c.value === null || c.value.length === 0) {
+      return null; // don't validate empty value
+    }
     const controlToCompare = c.root.get(this.controlNameToCompare);
     if (controlToCompare) {
       const subscription: Subscription = controlToCompare.valueChanges.subscribe(() => {
@@ -18,7 +22,7 @@ export class CompareValidatorDirective implements Validator {
         subscription.unsubscribe();
       });
     }
-    return controlToCompare && controlToCompare.value !== c.value ? {'appCompareValidator': true} : null;
+    return controlToCompare && controlToCompare.value !== c.value ? {'compare': true} : null;
   }
 
 }
