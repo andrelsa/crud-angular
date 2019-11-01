@@ -2,18 +2,20 @@
 <form #f="ngForm">
   <div class="form-group">
     <label>Email</label>
-    <input type="email" class="form-control" name="email" ngModel #email="ngModel" required>
+    <input type="email" class="form-control" name="email" ngModel #email="ngModel" required uniqueEmail>
     <div class="text-danger" *ngIf="email.invalid && (email.dirty || email.touched)">
-      Email is required
+      <div *ngIf="email.errors['required']">Email is required</div>
+      <div *ngIf="email.errors['uniqueEmail']">Email already exists</div>
     </div>
   </div>
   <div class="form-group">
     <label>Email Confirm</label>
     <input type="email" class="form-control" name="emailConfirm" ngModel #emailConfirm="ngModel" required
-           compare="email">
+           compare="email" uniqueEmail>
     <div class="text-danger" *ngIf="emailConfirm.invalid && (emailConfirm.dirty || emailConfirm.touched)">
       <div *ngIf="emailConfirm.errors['required']">Email Confirm is required</div>
       <div *ngIf="emailConfirm.errors['compare']">Email Confirm do not match</div>
+      <div *ngIf="emailConfirm.errors['uniqueEmail']">Email already exists</div>
     </div>
   </div>
   <div class="form-group">
