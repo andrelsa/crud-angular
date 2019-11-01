@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {compareValidator} from '../shared/compare-validator.directive';
 import {UserService} from '../shared/user.service';
 import {uniqueEmailValidator} from '../shared/unique-email-validator.directive';
+import {uniqueUsernameValidator} from '../shared/unique-username-validator.directive';
 
 @Component({
   selector: 'app-reactive-form',
@@ -24,6 +25,10 @@ export class ReactiveFormComponent implements OnInit {
 
   createForm() {
     this.reactiveForm = this.fb.group({
+      username: ['',
+        null, // sync validation
+        uniqueUsernameValidator(this.userService) // async validation
+      ],
       email: ['',
         Validators.required, // sync validation
         uniqueEmailValidator(this.userService) // async validation
@@ -35,6 +40,10 @@ export class ReactiveFormComponent implements OnInit {
       password: ['', Validators.required],
       passwordConfirm: ['', [Validators.required, compareValidator('password')]],
     });
+  }
+
+  get username() {
+    return this.reactiveForm.get('username');
   }
 
   get email() {

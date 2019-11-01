@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {map, tap} from 'rxjs/operators';
 
 @Injectable({
@@ -20,7 +20,8 @@ export class UserService {
         const newUsers = [];
         for (let user of users) {
           const email = user.email;
-          newUsers.push({email: email});
+          const username = user.username;
+          newUsers.push({email: email, username: username});
         }
         return newUsers;
       }),
@@ -30,5 +31,14 @@ export class UserService {
 
   getByUserByEmail(email: string) {
     return this.http.get<any[]>(`${this.url}?email=${email}`);
+  }
+
+  getByUserByUsername(userName: string) {
+    // return this.http.get<any[]>(`${this.url}?userName=${userName}`);
+
+    // HttpParams
+    return this.http.get<any[]>(this.url, {
+      params: new HttpParams().set('username', userName)
+    });
   }
 }
