@@ -5,7 +5,6 @@ import {AppComponent} from './app.component';
 import {AppRoutingModule} from './app-routing.module';
 import {RouterModule} from '@angular/router';
 import {HttpClientModule} from '@angular/common/http';
-import {DemoModule} from './demo/demo.module';
 import {CoreModule} from './core/core.module';
 
 @NgModule({
@@ -17,7 +16,6 @@ import {CoreModule} from './core/core.module';
     AppRoutingModule,
     RouterModule,
     HttpClientModule,
-    DemoModule,
     CoreModule
   ],
   providers: [],
