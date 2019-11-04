@@ -7,13 +7,15 @@ import {CommonModule} from '@angular/common';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {ErrorComponent} from './error/error.component';
 import {GlobalErrorHandler} from './global-error-handler.service';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 @NgModule({
   declarations: [
     HomeComponent,
     NavMenuComponent,
     FooterComponent,
-    ErrorComponent
+    ErrorComponent,
+    NotFoundComponent
   ],
   imports: [
     CommonModule,
